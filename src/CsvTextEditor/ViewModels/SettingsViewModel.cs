@@ -97,7 +97,8 @@ namespace CsvTextEditor.ViewModels
             AvailableUpdateChannels = new List<UpdateChannel>(_updateService.AvailableChannels);
             UpdateChannel = _updateService.CurrentChannel;
 
-            CustomEditor = _configurationService.GetRoamingValue<string>(Configuration.CustomEditor);
+            var customEditor = _configurationService.GetRoamingValue<string>(Configuration.CustomEditor, Environment.SystemDirectory + "\\notepad.exe");
+            CustomEditor = customEditor;
             AutoSaveEditor = _configurationService.GetRoamingValue<bool>(Configuration.AutoSaveEditor);
         }
 

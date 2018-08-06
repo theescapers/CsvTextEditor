@@ -12,6 +12,7 @@ namespace CsvTextEditor
     using Orc.FileSystem;
     using Orc.ProjectManagement;
     using Services;
+    using System;
 
     public class FileOpenInTextEditorCommandContainer : FileOpenInExternalToolCommandContainerBase
     {
@@ -34,7 +35,7 @@ namespace CsvTextEditor
 
         protected override void Execute(object parameter)
         {
-            var externalToolPath = _configurationService.GetRoamingValue<string>(Configuration.CustomEditor);
+            var externalToolPath = _configurationService.GetRoamingValue<string>(Configuration.CustomEditor, Environment.SystemDirectory + "\\notepad.exe");
 
             var toolPath = externalToolPath ?? _fileExtensionService.GetRegisteredTool("txt");
             _processService.StartProcess(toolPath, _projectManager.ActiveProject.Location);
